@@ -1,0 +1,11 @@
+{
+  "name": "gol-js",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "author": "Victor Nascimento Bakke",
+  "repository": "https://github.com/Gipphe/gol-js",
+  "license": "MIT",
+  "dependencies": {
+    "vue": "^2.1.10"
+  }
+}
