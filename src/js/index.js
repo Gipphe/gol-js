@@ -1,19 +1,27 @@
-var body = document.getElementById('body');
+/* jshint esversion: 6 */
+const body = document.getElementById('body');
 
-var grid = [];
-var row = ','.repeat(100).split(',').slice(0, -1).map(function(val) {
+const grid = [];
+const row = ','.repeat(100).split(',').slice(0, -1).map(function(val) {
 	return Boolean(val);
 });
-for (var i = 0; i < 100; i++) {
+for (let i = 0; i < 100; i++) {
 	grid.push(row);
 }
 
-var display = function() {
+const createCell = () => {
+	const cell = document.createElement('DIV');
+	const text = document.createTextNode(String.fromCharCode(160));
+	cell.classList.add('cell');
+	cell.appendChild(text);
+	return cell;
+};
+
+const display = function() {
 	grid.forEach(function(row, y) {
-		var cell;
-		row.forEach(function(cell, x) {
-			cell = document.createElement('DIV');
-			cell.classList.add('cell');
+		row.forEach(function(cellVal, x) {
+			const cell = createCell();
+			cell.classList.toggle('Alive', cellVal);
 			cell.setAttribute('data-x', x);
 			cell.setAttribute('data-y', y);
 			body.appendChild(cell);
@@ -22,21 +30,14 @@ var display = function() {
 };
 
 body.addEventListener('click', function(e) {
-	var cell = e.target;
-	if (!e.classList.contains('cell')) {
+	const cell = e.target;
+	if (!cell.classList.contains('cell')) {
 		return;
 	}
+	console.log(e.target);
 	cell.classList.add('alive');
 });
 
-var loop = function() {
-	var oldGrid = grid.slice();
-	oldGrid.forEach(function(row, y) {
-		var cell;
-		row.forEach(function(cell, x) {
-			console.log(cell, x, y);
-		});
-	});
 
-	setTimeout(loop, 500);
-};
+display();
+$('.cell').css({'height': $('.cell').width() + 'px'});
